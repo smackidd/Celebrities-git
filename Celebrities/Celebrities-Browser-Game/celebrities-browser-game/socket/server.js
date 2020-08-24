@@ -64,9 +64,11 @@ io.on('connection', (socket) => {
     callback();
   });
 
-  socket.on('teams', (team) => {
-    console.log('team', team, 'room', team.room);
-    socket.broadcast.to(team.room).emit('newTeams', { newTeam: team.team });
+  socket.on('teams', (data) => {
+    console.log('teamName', data.teamName, 'room', data.room);
+    const teams = addTeam({ teamName: data.teamName, room: data.room });
+    console.log('teams', teams);
+    io.to(data.room).emit('teams', { teams });
   });
 
   socket.on('joinTeam', (teams) => {

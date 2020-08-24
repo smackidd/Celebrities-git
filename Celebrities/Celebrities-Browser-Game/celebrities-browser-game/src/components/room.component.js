@@ -130,36 +130,36 @@ const Room = ({ location }) => {
     });
   }, [messages]);
 
-  useEffect(() => {
-    console.log('sending team to socket', team);
-    socket.emit('teams', { team, room });
-  }, [team]);
+  // useEffect(() => {
+  //   console.log('sending team to socket', team);
+  //   socket.emit('teams', { team, room });
+  // }, [team]);
 
-  useEffect(() => {
-    let teamIndex;
-    const members = {
-      id: userID,
-      user: name,
-    };
-    //find the team with the id being joined
-    teams.map((team, index) => {
-      if (joinTeamID === team.id) teamIndex = index;
-    });
+  // useEffect(() => {
+  //   let teamIndex;
+  //   const members = {
+  //     id: userID,
+  //     user: name,
+  //   };
+  //   //find the team with the id being joined
+  //   teams.map((team, index) => {
+  //     if (joinTeamID === team.id) teamIndex = index;
+  //   });
 
-    const update = [...teams];
-    update[teamIndex].members.push(members);
+  //   const update = [...teams];
+  //   update[teamIndex].members.push(members);
 
-    setTeams([...teams, update]);
-    console.log('updating members in team', joinTeamID);
-    console.log('sending new members to team', joinTeamID);
-    socket.emit('joinTeam', { teams, room, name });
-  }, [joinTeamID]);
+  //   setTeams([...teams, update]);
+  //   console.log('updating members in team', joinTeamID);
+  //   console.log('sending new members to team', joinTeamID);
+  //   socket.emit('joinTeam', { teams, room, name });
+  // }, [joinTeamID]);
 
   useEffect(() => {
     console.log('setting teams', teams);
 
-    socket.on('newTeams', ({ newTeam }) => {
-      setTeams([...teams, newTeam]);
+    socket.on('teams', ({ teams }) => {
+      setTeams(teams);
     });
     socket.on('joinTeam', (teams) => {
       setTeams(teams);
@@ -223,7 +223,8 @@ const Room = ({ location }) => {
       members: [],
     };
 
-    setTeams([...teams, newTeam]);
+    //setTeams([...teams, newTeam]);
+    socket.emit('teams', { teamName, room });
     sendTeam(newTeam);
     onOffCreateTeam();
     return;
