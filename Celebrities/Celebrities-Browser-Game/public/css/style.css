@@ -1,0 +1,262 @@
+:root {
+    --dark-grey: #464646;
+    --medium-grey: #495867;
+    --UCLA-blue: #577399;
+    --Beau-blue: #BDD5EA;
+    --Lavender: #E5E5F3;
+    --Sunset-orange: #FE5F55;
+    --teal: #049A9E;
+    --light-blue: #2A63B1;
+	--light-grey: #dadada;
+    --dark-blue: #0B2B53;
+    --Bangers: 'Bangers', cursive;
+    --Source-code: 'Source Code Pro', monospace;
+    --Roboto: 'Roboto Slab', serif;
+	
+}
+
+input{
+    outline: none;
+}
+button{
+    outline: none;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	background: var(--light-grey);
+	
+}
+
+#registration-box {
+    display: block;
+    position: relative;
+    top: 20px;
+    max-width: 700px;
+    height: 600px;
+    margin: 30px auto;
+    background-color: var(--medium-grey);
+    border-radius: 10px;
+}
+
+#registration-inner-box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 660px;
+    height: 560px;
+    top: 20px;
+    margin: 20px;
+    background-color: var(--medium-grey);
+    box-shadow:  9px 9px 12px #42505e, 
+             -9px -9px 12px #506070;
+    border-radius: 9px;
+}
+
+#title-box {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    font-family: var(--Bangers);
+    color: var(--Sunset-orange);
+    font-size: 48px;
+    letter-spacing: 5px;
+    text-align: center;
+    background-color: var(--dark-grey);
+    border-top-right-radius: 9px;
+    border-top-left-radius: 9px;
+}
+
+#registration-inputs {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    margin-top: 30px;
+    color: var(--Sunset-orange);
+    font-family: var(--Source-code);
+}
+
+#registration-inputs h2 {
+    color: var(--Sunset-orange);
+    text-align: center;
+}
+
+#registration-inputs input {
+    margin: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-left: 40px;
+    height: 40px;
+    border: none;
+    font-size: 1.5em;
+    font-style: italic;
+    color: var(--Sunset-orange);
+    font-family: var(--Source-code);
+    background-color: var(--medium-grey);
+    box-shadow: inset 10px 10px 20px #445260, 
+            inset -10px -10px 20px #4e5e6e;
+    border-radius: 5px;
+
+}
+
+#registration-buttons {
+    display: flex;
+    position: relative;
+    width: 50%;
+    
+    
+    color: var(--Sunset-orange);
+    font-family: var(--Source-code);
+    
+}
+
+#registration-buttons button {
+    
+    position: relative;
+    margin: 30px;
+    left: 25px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: none;
+    font-size: 1.5em;
+    color: var(--Sunset-orange);
+    font-family: var(--Source-code);
+    background-color: var(--medium-grey);
+    box-shadow:  7px 7px 4px #455462, 
+             -7px -7px 4px #4d5c6c;
+    border-radius: 7px;
+}
+
+#register-here {
+    color: var(--Sunset-orange);
+    margin: 20px;
+    margin-left: 60px;
+}
+
+#register-here a{
+    text-decoration: none;
+    color: var(--light-grey);
+}
+
+/* game page css */
+#game-container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0;
+}
+#hud{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 90vh;
+}
+
+/* team window */
+#team-bar {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 90vh;
+    background-color: var(--UCLA-blue);
+    border: 1px solid var(--dark-blue);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.team-container {
+    margin: 20px;
+    margin-top: 20px;
+    color: var(--dark-blue);
+    font-family: var(--Source-code);
+}
+
+/* display */
+#display {
+    flex: 3;
+
+}
+
+/* chat-window */
+#chat-window {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex: 2;
+    height: 90vh;
+    
+    background-color: var(--Lavender);
+    border: 1px solid var(--dark-blue);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#chat-window h3{
+    margin-top: 20px;
+    text-align: center;
+}
+.chat {
+   
+    
+    width: 100%;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.message{
+    margin: 15px;
+    
+}
+
+.meta{
+    color: var(--dark-blue);
+}
+
+.msgText{
+    color: var(--Sunset-orange);
+}
+
+#chat-input1 {
+    position: absolute;
+    
+    width: 100%;
+    height: 10vh;
+    bottom: 0;
+    background-color: var(--Beau-blue);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 0px -2px 5px var(--dark-grey);
+
+}
+
+#chat-input1 input{
+    position: relative;
+    top: 30%;
+    margin-left: 25%;
+}
+
+#chat-input1 button {
+    position: relative;
+    top: 30%;
+    margin-left: 20px;
+    margin: 10px;
+}
+
+/* chat-input */
+#chat-input {
+    position: relative;
+    width: 100%;
+    height: 10vh;
+    bottom: 0;
+    background-color: var(--medium-grey);
+    border: 1px solid var(--dark-blue);
+}

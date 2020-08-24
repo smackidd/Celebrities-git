@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto+Slab&family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
+    <title>Celebrities Game</title>
+</head>
+<body>
+    <div id="game-container">
+        <div id="hud">
+            <div id="team-bar">
+                <div class="team-container">
+                    <h2>Team 1</h2>
+                    <ul>
+                        <li>Steve</li>
+                        <li>Kat</li>
+                    </ul>
+                </div>
+                <div class="team-container">
+                    <h2>Team 2</h2>
+                    <ul>
+                        <li>Steve</li>
+                        <li>Kat</li>
+                    </ul>
+                </div>
+                <div class="team-container">
+                    <h2>Team 3</h2>
+                    <ul>
+                        <li>Steve</li>
+                        <li>Kat</li>
+                    </ul>
+                </div>
+                <div class="team-container">
+                    <h2>Team 4</h2>
+                    <ul>
+                        <li>Steve</li>
+                        <li>Kat</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div id="display">
+
+            </div>
+            <div id="chat-window">
+                <h3>Chat</h3>
+                <div class="chat"></div>
+                <div id="chat-input1">
+                    <form id="chat-form">
+                        <input type="text" id="msg" placeholder="Enter Message" required autocomplete="off"/>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="chat-input">
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.3/qs.min.js" integrity="sha256-lSPkSu/D04IeqWOhTgTf5tLzNFEc37oNE9ysGS9PdK4=" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
