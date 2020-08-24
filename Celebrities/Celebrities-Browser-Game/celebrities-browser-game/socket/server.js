@@ -3,6 +3,15 @@ const socketio = require('socket.io');
 const http = require('http');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+const {
+  addTeam,
+  addMember,
+  removeMember,
+  removeTeam,
+  getTeams,
+  getTeam,
+  getMemberInTeam,
+} = require('./teams.js');
 
 const PORT = process.env.PORT || 5002;
 

@@ -1,3 +1,25 @@
-teams.map((team) => {
-  if (team.members.user === teams.name) teamName = team.teamName;
-});
+let teams = [];
+
+const addTeam = ({}) => {};
+
+const addMember = ({}) => {};
+
+const removeMember = ({}) => {};
+
+const removeTeam = ({}) => {};
+
+const getTeams = ({}) => {};
+
+const getTeam = ({}) => {};
+
+const getMemberInTeam = ({}) => {};
+
+module.exports = {
+  addTeam,
+  addMember,
+  removeMember,
+  removeTeam,
+  getTeams,
+  getTeam,
+  getMemberInTeam,
+};
