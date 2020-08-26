@@ -2,7 +2,12 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+const {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRoom,
+} = require('./utils/users.js');
 const {
   addTeam,
   addMember,
@@ -11,7 +16,13 @@ const {
   getTeams,
   getTeam,
   getMemberInTeam,
-} = require('./teams.js');
+} = require('./utils/teams.js');
+const {
+  addPlayer,
+  removePlayer,
+  getPlayer,
+  getPlayersInRoom,
+} = require('./utils/players');
 
 const PORT = process.env.PORT || 5002;
 
@@ -65,35 +76,53 @@ io.on('connection', (socket) => {
   });
 
   socket.on('teams', (data) => {
-    console.log('teamName', data.teamName, 'room', data.room);
+    console.log(
+      'teamName',
+      data.teamName,
+      'room',
+      data.room,
+      'name',
+      data.name
+    );
     const teams = addTeam({ teamName: data.teamName, room: data.room });
     console.log('teams', teams);
+    io.to(data.room).emit('message', {
+      user: 'admin',
+      text: `${data.name} created team ${data.teamName}`,
+    });
     io.to(data.room).emit('teams', { teams });
   });
 
-  socket.on('joinTeam', (teams) => {
-    console.log('team', teams, 'room', teams.room, 'name', teams.name);
+  socket.on('joinTeam', (data) => {
+    console.log(
+      'teamID',
+      data.joinTeamID,
+      'room',
+      data.room,
+      'name',
+      data.name
+    );
     const user = removeUser(socket.id);
+    // remove user from the players list before adding to
+    // a team
     if (user) {
       io.to(user.room).emit('roomData', {
         room: user.room,
         players: getUsersInRoom(user.room),
       });
     }
-    if (teams) {
-      let teamName;
-      // send this out to teams.js
-      teams.teams.map((team) => {
-        if (team.members.user === teams.name) teamName = team.teamName;
-      });
-      io.to(teams.room).emit('message', {
-        user: 'admin',
-        text: `${teams.name} has joined ${teamName}`,
-      });
-      socket.broadcast
-        .to(teams.room)
-        .emit('joinTeam', { newTeams: teams.teams });
-    }
+
+    const teams = addMember({
+      teamID: data.joinTeamID,
+      userID: socket.id,
+      name: data.name,
+    });
+    console.log('teams new member', teams[0].members[0]);
+    io.to(data.room).emit('message', {
+      user: 'admin',
+      text: `${data.name} has joined ${teams[data.joinTeamID - 1].teamName}`,
+    });
+    io.to(data.room).emit('teams', { teams });
   });
 
   socket.on('disconnect', () => {

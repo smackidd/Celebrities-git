@@ -8,11 +8,6 @@ const JoinTeam = ({ teams, joinTeam, onJoinTeam, onJoined, onJoinTeamID }) => {
     onJoinTeamID(teamID);
   }, [teamID]);
 
-  const accepted = (event) => {
-    selectedTeamID(event.target.value);
-    onJoined(event);
-  };
-
   return (
     <div>
       {joinTeam && (
@@ -20,12 +15,12 @@ const JoinTeam = ({ teams, joinTeam, onJoinTeam, onJoined, onJoinTeamID }) => {
           <form>
             <h2>Join Team</h2>
             <div>
-              <label for='joinTeam'>Join A Team</label>
+              <label htmlFor='joinTeam'>Join A Team</label>
               <select
                 id='joinTeam'
                 name='joinTeam'
                 value={teamID}
-                onChange={(event) => console.log('here')}
+                onChange={(event) => selectedTeamID(event.target.value)}
               >
                 <option key='0' value='null'>
                   -- Select a Team --
@@ -40,7 +35,7 @@ const JoinTeam = ({ teams, joinTeam, onJoinTeam, onJoined, onJoinTeamID }) => {
             <br />
             <div>
               {/* grab the e.target.value, preventDefault */}
-              <button type='submit' onClick={(event) => accepted(event)}>
+              <button type='submit' onClick={(event) => onJoined(event)}>
                 Accept
               </button>
 

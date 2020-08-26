@@ -130,38 +130,10 @@ const Room = ({ location }) => {
     });
   }, [messages]);
 
-  // useEffect(() => {
-  //   console.log('sending team to socket', team);
-  //   socket.emit('teams', { team, room });
-  // }, [team]);
-
-  // useEffect(() => {
-  //   let teamIndex;
-  //   const members = {
-  //     id: userID,
-  //     user: name,
-  //   };
-  //   //find the team with the id being joined
-  //   teams.map((team, index) => {
-  //     if (joinTeamID === team.id) teamIndex = index;
-  //   });
-
-  //   const update = [...teams];
-  //   update[teamIndex].members.push(members);
-
-  //   setTeams([...teams, update]);
-  //   console.log('updating members in team', joinTeamID);
-  //   console.log('sending new members to team', joinTeamID);
-  //   socket.emit('joinTeam', { teams, room, name });
-  // }, [joinTeamID]);
-
   useEffect(() => {
     console.log('setting teams', teams);
 
     socket.on('teams', ({ teams }) => {
-      setTeams(teams);
-    });
-    socket.on('joinTeam', (teams) => {
       setTeams(teams);
     });
   }, [teams]);
@@ -189,6 +161,8 @@ const Room = ({ location }) => {
 
   const onJoined = (e) => {
     e.preventDefault();
+
+    socket.emit('joinTeam', { joinTeamID, room, name });
   };
 
   //adds a team with a new name to the list of teams
@@ -224,8 +198,8 @@ const Room = ({ location }) => {
     };
 
     //setTeams([...teams, newTeam]);
-    socket.emit('teams', { teamName, room });
-    sendTeam(newTeam);
+    socket.emit('teams', { teamName, room, name });
+
     onOffCreateTeam();
     return;
   };
