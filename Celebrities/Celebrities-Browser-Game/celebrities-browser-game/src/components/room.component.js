@@ -17,6 +17,7 @@ const Room = ({ location }) => {
   const [userID, setUserID] = useState('');
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [users, setUsers] = useState([]);
   const [players, setPlayers] = useState([]);
 
   const [message, setMessage] = useState('');
@@ -97,8 +98,12 @@ const Room = ({ location }) => {
           console.log('I am here too');
         });
 
-        socket.on('roomData', ({ room, players }) => {
+        socket.on('roomData', ({ room, users }) => {
           console.log('I am here');
+          setUsers(users);
+        });
+
+        socket.on('playerData', ({ room, players }) => {
           setPlayers(players);
         });
 
@@ -115,14 +120,14 @@ const Room = ({ location }) => {
     return () => {
       console.log('disconnect');
       socket.emit('disconnect');
-      socket.on('roomData', ({ room, players }) => {
-        console.log('I am here');
-        setPlayers(players);
-      });
+      // socket.on('roomData', ({ room, players }) => {
+      //   console.log('I am here');
+      //   setPlayers(players);
+      // });
 
       socket.off();
     };
-  }, [ENDPOINT, location.search]);
+  }, [/*ENDPOINT, */ location.search]);
 
   useEffect(() => {
     socket.on('message', (message) => {
@@ -163,6 +168,7 @@ const Room = ({ location }) => {
     e.preventDefault();
 
     socket.emit('joinTeam', { joinTeamID, room, name });
+    onOffJoinTeam();
   };
 
   //adds a team with a new name to the list of teams
@@ -174,28 +180,6 @@ const Room = ({ location }) => {
     e.preventDefault();
 
     console.log('teamName', teamName);
-    let newID;
-    let duplicate = false;
-    teams.map((team) => {
-      if (team.members.user === teamName) {
-        duplicate = true;
-      }
-    });
-    if (duplicate) {
-      return alert('Team name already exists');
-    }
-
-    newID = 1;
-    if (teams.length > 0) {
-      newID = teams[teams.length - 1].id + 1;
-    }
-
-    const newTeam = {
-      id: newID,
-      totalScore: 0,
-      teamName,
-      members: [],
-    };
 
     //setTeams([...teams, newTeam]);
     socket.emit('teams', { teamName, room, name });
@@ -232,6 +216,7 @@ const Room = ({ location }) => {
       <div id='game-info'>
         <GameInfo
           players={players}
+          users={users}
           onCreateTeam={onOffCreateTeam}
           onJoinTeam={onOffJoinTeam}
         />

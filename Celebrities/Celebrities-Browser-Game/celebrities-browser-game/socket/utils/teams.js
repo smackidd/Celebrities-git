@@ -42,7 +42,7 @@ const addMember = ({ teamID, userID, name }) => {
 const removeMember = (userID) => {
   for (let i = 0; i < teams.length; i++) {
     let userIndex = teams[i].members.findIndex(
-      (member) => member.userID == userID
+      (member) => member.userID === userID
     );
     if (userIndex !== -1) return teams[i].members.splice(userIndex, 1)[0];
   }
@@ -50,7 +50,9 @@ const removeMember = (userID) => {
 
 const removeTeam = ({}) => {};
 
-const getTeams = ({}) => {};
+const getTeams = (room) => {
+  return teams.find((team) => team.room === room);
+};
 
 const getTeam = ({}) => {};
 

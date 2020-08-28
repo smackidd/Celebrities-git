@@ -1,11 +1,11 @@
 import React from 'react';
 
-const SetTeams = ({ mode, players, onCreateTeam, onJoinTeam }) => {
+const SetTeams = ({ mode, players, users, onCreateTeam, onJoinTeam }) => {
   return (
     <div>
       {mode === 'setTeams' && (
         <React.Fragment>
-          <p>{players.length} players have joined</p>
+          <p>{users.length} players have joined</p>
           <div className='teamButtons'>
             <button onClick={onCreateTeam}>Create Team</button>
             <button onClick={onJoinTeam}>Join Team</button>

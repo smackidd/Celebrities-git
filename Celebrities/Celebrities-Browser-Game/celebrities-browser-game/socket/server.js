@@ -30,12 +30,16 @@ const PORT = process.env.PORT || 5002;
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  pingInterval: 5000,
+  pingTimeout: 120000000,
+});
 
 io.on('connection', (socket) => {
   socket.on('join', ({ name, room }, callback) => {
     console.log('name', name, 'room', room);
     const { error, user } = addUser({ id: socket.id, name, room });
+    const { player } = addPlayer({ id: socket.id, name, room });
     console.log('user', user);
     console.log(`${user.name} has joined`);
     socket.join(user.room);
@@ -53,7 +57,12 @@ io.on('connection', (socket) => {
 
     io.to(user.room).emit('roomData', {
       room: user.room,
-      players: getUsersInRoom(user.room),
+      users: getUsersInRoom(user.room),
+    });
+
+    io.to(player.room).emit('playerData', {
+      room: player.room,
+      players: getPlayersInRoom(player.room),
     });
     // io.to(user.room).emit('roomUsers', {
     //     room: user.room,
@@ -102,13 +111,13 @@ io.on('connection', (socket) => {
       'name',
       data.name
     );
-    const user = removeUser(socket.id);
+    const player = removePlayer(socket.id);
     // remove user from the players list before adding to
     // a team
-    if (user) {
-      io.to(user.room).emit('roomData', {
-        room: user.room,
-        players: getUsersInRoom(user.room),
+    if (player) {
+      io.to(player.room).emit('playerData', {
+        room: player.room,
+        players: getPlayersInRoom(player.room),
       });
     }
 
@@ -127,6 +136,8 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
+    const player = removePlayer(socket.id);
+    const member = removeMember(socket.id);
     console.log(`${user.name} has disconnected`);
 
     if (user) {
@@ -136,8 +147,19 @@ io.on('connection', (socket) => {
       });
       io.to(user.room).emit('roomData', {
         room: user.room,
-        players: getUsersInRoom(user.room),
+        users: getUsersInRoom(user.room),
       });
+      if (player) {
+        io.to(player.room).emit('playerData', {
+          room: player.room,
+          players: getPlayersInRoom(player.room),
+        });
+      }
+      if (member) {
+        io.to(member.room).emit('teams', {
+          teams: getTeams(member.room),
+        });
+      }
     }
   });
 });

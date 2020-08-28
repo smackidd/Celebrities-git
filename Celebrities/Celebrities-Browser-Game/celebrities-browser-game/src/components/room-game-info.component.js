@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import PlayersRemaining from './players-remaining.component';
 import SetTeams from './set-teams.component';
 
-const GameInfo = ({ players, onCreateTeam, onJoinTeam }) => {
+const GameInfo = ({ players, users, onCreateTeam, onJoinTeam }) => {
   const [mode, changeMode] = useState('playersRemaining');
 
   const playersRemaining = () => {
-    const playersRemaining = 4 - players.length;
+    const playersRemaining = 4 - users.length;
 
     if (playersRemaining === 0) {
       return changeMode('setTeams');
@@ -21,6 +21,7 @@ const GameInfo = ({ players, onCreateTeam, onJoinTeam }) => {
       <SetTeams
         mode={mode}
         players={players}
+        users={users}
         onCreateTeam={onCreateTeam}
         onJoinTeam={onJoinTeam}
       />

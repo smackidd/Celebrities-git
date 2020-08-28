@@ -4,9 +4,10 @@
 // Fix user-register and room-register backend (JWT)
 // Add catch at the onSubmit methods in user login and register
 // add validation for illegal characters in register (no spaces)
-// Socket IO - Players List, chat
-// Menu Component buttons at the bottom
-// Display Component
+// Fix create teams default button
+// add auto-assign functionality
+// toggle buttons on and off when needed.
+// FIGURE OUT WEIRD DELAY BUG!!! (looping through server calls)
 //
 /////
 
