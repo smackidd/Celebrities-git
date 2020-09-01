@@ -6,7 +6,7 @@ const JoinTeam = ({ teams, joinTeam, onJoinTeam, onJoined, onJoinTeamID }) => {
   useEffect(() => {
     console.log('teamID', teamID);
     onJoinTeamID(teamID);
-  }, [teamID]);
+  }, [onJoinTeamID, teamID]);
 
   return (
     <div>

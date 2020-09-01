@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 5002;
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server, {
-  pingInterval: 5000,
+  pingInterval: 500000,
   pingTimeout: 120000000,
 });
 
@@ -64,10 +64,6 @@ io.on('connection', (socket) => {
       room: player.room,
       players: getPlayersInRoom(player.room),
     });
-    // io.to(user.room).emit('roomUsers', {
-    //     room: user.room,
-    //     users: getRoomUsers(user.room)
-    // });
 
     callback();
   });
@@ -76,10 +72,6 @@ io.on('connection', (socket) => {
     const user = getUser(socket.id);
 
     io.to(user.room).emit('message', { user: user.name, text: message });
-    // io.to(user.room).emit('roomData', {
-    //   room: user.room,
-    //   users: getUsersInRoom(user.room),
-    // });
 
     callback();
   });

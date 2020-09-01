@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import RoomTeam from './room-team.component';
 import RoomPlayers from './room-players.component';
 

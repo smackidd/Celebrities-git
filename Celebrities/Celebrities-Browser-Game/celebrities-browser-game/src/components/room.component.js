@@ -13,61 +13,37 @@ let socket;
 
 const ENDPOINT = 'localhost:5002';
 
+function array() {
+  console.log('testing the render state');
+  return [];
+}
+function string() {
+  return '';
+}
+function object() {
+  return {};
+}
+function bool() {
+  return false;
+}
+
 const Room = ({ location }) => {
-  const [userID, setUserID] = useState('');
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
-  const [users, setUsers] = useState([]);
-  const [players, setPlayers] = useState([]);
+  const [userID, setUserID] = useState(() => string());
+  const [name, setName] = useState(() => string());
+  const [room, setRoom] = useState(() => string());
+  const [users, setUsers] = useState(() => array());
+  const [players, setPlayers] = useState(() => array());
 
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState(() => string());
+  const [messages, setMessages] = useState(() => array());
 
-  const [teamName, setTeamName] = useState('');
-  const [team, sendTeam] = useState({});
-  const [teams, setTeams] = useState([
-    // {
-    //   id: 1,
-    //   totalScore: 0,
-    //   teamName: '',
-    //   members: [
-    //     { userID: '1', user: 'Steve' },
-    //     { userID: '2', user: 'Kat' },
-    //   ],
-    // },
-    // {
-    //   id: 2,
-    //   totalScore: 0,
-    //   teamName: '',
-    //   members: [
-    //     { userID: '3', user: 'Rob' },
-    //     { userID: '4', user: 'Barry' },
-    //   ],
-    // },
-    // {
-    //   id: 3,
-    //   totalScore: 0,
-    //   teamName: '',
-    //   members: [
-    //     { userID: '5', user: 'Sean' },
-    //     { userID: '6', user: 'Anyssa' },
-    //   ],
-    // },
-    // {
-    //   id: 4,
-    //   totalScore: 0,
-    //   teamName: '',
-    //   members: [
-    //     { userID: '7', user: 'Jen' },
-    //     { userID: '8', user: 'Stacy' },
-    //     { user: 'Baxter' },
-    //   ],
-    // },
-  ]);
+  const [teamName, setTeamName] = useState(() => string());
+  const [team, sendTeam] = useState(() => object());
+  const [teams, setTeams] = useState(() => array());
   // this state turns on the CreateTeam card in the display
-  const [createTeam, onCreateTeam] = useState(false);
-  const [joinTeam, onJoinTeam] = useState(false);
-  const [joinTeamID, onJoinTeamID] = useState('');
+  const [createTeam, onCreateTeam] = useState(() => bool());
+  const [joinTeam, onJoinTeam] = useState(() => bool());
+  const [joinTeamID, onJoinTeamID] = useState(() => string());
 
   useEffect(() => {
     // const path = location.pathname.split('/');
@@ -104,7 +80,9 @@ const Room = ({ location }) => {
         });
 
         socket.on('playerData', ({ room, players }) => {
-          setPlayers(players);
+          setPlayers(() => {
+            return players;
+          });
         });
 
         //console.log("players", players);
@@ -127,11 +105,13 @@ const Room = ({ location }) => {
 
       socket.off();
     };
-  }, [/*ENDPOINT, */ location.search]);
+  }, [location.search]);
 
   useEffect(() => {
     socket.on('message', (message) => {
-      setMessages([...messages, message]);
+      setMessages(() => {
+        return [...messages, message];
+      });
     });
   }, [messages]);
 
@@ -139,7 +119,9 @@ const Room = ({ location }) => {
     console.log('setting teams', teams);
 
     socket.on('teams', ({ teams }) => {
-      setTeams(teams);
+      setTeams(() => {
+        return teams;
+      });
     });
   }, [teams]);
 

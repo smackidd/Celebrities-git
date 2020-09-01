@@ -7,7 +7,7 @@ const RoomPlayers = ({ players }) => {
       <h2>Players</h2>
       <ul>
         {players.map((p) => (
-          <li key={p.userID}>{p.name}</li>
+          <li key={p.id}>{p.name}</li>
         ))}
       </ul>
     </div>

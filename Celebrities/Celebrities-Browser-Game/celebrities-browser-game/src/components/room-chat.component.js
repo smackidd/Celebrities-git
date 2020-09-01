@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ChatMessages from './room-chat-messages.component.js';
 
 const RoomChat = ({ message, messages, setMessage, sendMessage }) => {
